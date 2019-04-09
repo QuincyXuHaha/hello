@@ -13,14 +13,6 @@ public abstract class AbstractPacket {
 
     private Byte version = 1;
 
-    /**
-     * 版本号
-     *
-     * @return 版本号
-     */
-    public Byte getVersion() {
-        return version;
-    }
 
     /**
      * 获取指令

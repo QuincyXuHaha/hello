@@ -9,9 +9,9 @@ import lombok.Data;
  * @date 2019/4/9 星期二
  */
 @Data
-public class LoginPacket extends AbstractPacket {
+public class LoginRequestPacket extends AbstractPacket {
 
-    private Integer userId;
+    private Long userId;
     private String name;
     private String pwd;
 

@@ -1,6 +1,7 @@
 package com.quincy.netty;
 
 
+import com.quincy.netty.server.FirstServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
@@ -36,11 +37,6 @@ public class NettyServer {
 
                     }
                 });//定义处理连接的业务逻辑;
-//        ChannelFuture bind = serverBootstrap.bind(8000);// 绑定需要监听的端口号
-//        bind.addListener(future -> {
-//            String msg = future.isSuccess() ? "成功" : "失败";
-//            System.out.println(String.format("端口绑定%s", msg));
-//        });
         // 总结：启动一个netty服务端，需要3个参数：线程模型，io模型和连接读写处理逻辑
         bind(serverBootstrap, 8000);
     }

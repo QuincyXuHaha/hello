@@ -1,5 +1,6 @@
 package com.quincy.netty;
 
+import com.quincy.netty.client.FirstClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInboundHandler;
 import io.netty.channel.ChannelInitializer;
@@ -36,10 +37,6 @@ public class NettyClient {
                         ch.pipeline().addLast(FIRST);
                     }
                 });
-//        bootstrap.connect("juejin.im", 80).addListener(future -> {
-//            String msg = future.isSuccess() ? "成功" : "失败";
-//            System.out.println(String.format("连接%s", msg));
-//        });
         connect(bootstrap, "127.0.0.1", 8000, 10);
     }
 
