@@ -1,5 +1,7 @@
-package com.quincy.netty.protocol;
+package com.quincy.netty.protocol.resp;
 
+import com.quincy.netty.protocol.AbstractPacket;
+import com.quincy.netty.protocol.Command;
 import lombok.Data;
 
 /**
