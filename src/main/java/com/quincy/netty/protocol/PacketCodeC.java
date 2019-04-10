@@ -25,7 +25,7 @@ public class PacketCodeC {
     /**
      * 魔数
      */
-    private static final int MAGIC_NUMBER = 0x12345678;
+    public static final int MAGIC_NUMBER = 0x12345678;
     private static Map<Byte, Class<? extends AbstractPacket>> requestTypeMap = new HashMap<>();
     private static Map<Byte, Serializer> serializerMap = new HashMap<>();
     public static final PacketCodeC INSTANCE = new PacketCodeC();
