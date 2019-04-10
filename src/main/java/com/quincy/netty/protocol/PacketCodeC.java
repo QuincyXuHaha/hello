@@ -31,6 +31,7 @@ public class PacketCodeC {
     public static final PacketCodeC INSTANCE = new PacketCodeC();
 
     static {
+        // 命令模式
         requestTypeMap.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
         requestTypeMap.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
         requestTypeMap.put(Command.MESSAGE_REQUEST, MsgRequestPacket.class);
@@ -39,18 +40,22 @@ public class PacketCodeC {
         serializerMap.put(SerializeAlgorithm.JSON, Serializer.DEFAULT);
     }
 
-    public ByteBuf encode(ByteBufAllocator allocator, AbstractPacket packet) {
-        // 1、创建一个buf
-        ByteBuf buf = allocator.ioBuffer();
-        // 2、序列化对象
+    public void encode(ByteBuf buf, AbstractPacket packet) {
+        // 序列化对象
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
-        // 3、按照报文格式写入buf中
+        // 按照报文格式写入buf中
         buf.writeInt(MAGIC_NUMBER);
         buf.writeByte(packet.getVersion());
         buf.writeByte(Serializer.DEFAULT.getSerializeAlgorithm());
         buf.writeByte(packet.getCommand());
         buf.writeInt(bytes.length);
         buf.writeBytes(bytes);
+    }
+
+    public ByteBuf encode(ByteBufAllocator allocator, AbstractPacket packet) {
+        // 1、创建一个buf
+        ByteBuf buf = allocator.ioBuffer();
+        encode(buf, packet);
         return buf;
     }
 

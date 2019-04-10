@@ -1,7 +1,9 @@
 package com.quincy.netty;
 
 
-import com.quincy.netty.server.FirstServerHandler;
+import com.quincy.netty.protocol.PacketDecoder;
+import com.quincy.netty.protocol.PacketEncoder;
+import com.quincy.netty.server.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
@@ -33,8 +35,13 @@ public class NettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(FIRST);
-
+//                        ch.pipeline().addLast(FIRST);
+//                        ch.pipeline().addLast(new InboundHandlerA(), new InboundHandlerB(), new InboundHandlerC());
+//                        ch.pipeline().addLast(new OutboundHandlerA(), new OutboundHandlerB(), new OutboundHandlerC());
+                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(new LoginRequestHandler());
+                        ch.pipeline().addLast(new MsgRequestHandler());
+                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });//定义处理连接的业务逻辑;
         // 总结：启动一个netty服务端，需要3个参数：线程模型，io模型和连接读写处理逻辑

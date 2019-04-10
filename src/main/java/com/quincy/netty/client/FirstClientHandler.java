@@ -1,11 +1,8 @@
 package com.quincy.netty.client;
 
-import com.quincy.netty.DateUtils;
-import com.quincy.netty.protocol.AbstractPacket;
-import com.quincy.netty.protocol.req.LoginRequestPacket;
-import com.quincy.netty.protocol.resp.LoginResponsePacket;
 import com.quincy.netty.protocol.PacketCodeC;
-import com.quincy.netty.protocol.resp.MsgResponsePacket;
+import com.quincy.netty.protocol.req.LoginRequestPacket;
+import com.quincy.netty.util.DateUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -44,21 +41,21 @@ public class FirstClientHandler extends ChannelInboundHandlerAdapter {
      * @param ctx 通道处理器上下文
      * @param msg 请求消息
      */
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        // read data from server
-        ByteBuf buf = (ByteBuf) msg;
-        AbstractPacket packet = PacketCodeC.INSTANCE.decode(buf);
-        if (packet instanceof LoginResponsePacket) {
-            LoginResponsePacket loginResponsePacket = (LoginResponsePacket) packet;
-            if (loginResponsePacket.isSuccess()) {
-                System.out.println(DateUtils.now() + " 客户端登录成功");
-            } else {
-                System.out.println(DateUtils.now() + " 客户端登录失败，原因：" + loginResponsePacket.getReason());
-            }
-        } else if (packet instanceof MsgResponsePacket) {
-            MsgResponsePacket msgResponsePacket = (MsgResponsePacket) packet;
-            System.out.println(DateUtils.now() + " 收到服务端消息：" + msgResponsePacket.getMsg());
-        }
-    }
+//    @Override
+//    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+//        // read data from server
+//        ByteBuf buf = (ByteBuf) msg;
+//        AbstractPacket packet = PacketCodeC.INSTANCE.decode(buf);
+//        if (packet instanceof LoginResponsePacket) {
+//            LoginResponsePacket loginResponsePacket = (LoginResponsePacket) packet;
+//            if (loginResponsePacket.isSuccess()) {
+//                System.out.println(DateUtils.now() + " 客户端登录成功");
+//            } else {
+//                System.out.println(DateUtils.now() + " 客户端登录失败，原因：" + loginResponsePacket.getReason());
+//            }
+//        } else if (packet instanceof MsgResponsePacket) {
+//            MsgResponsePacket msgResponsePacket = (MsgResponsePacket) packet;
+//            System.out.println(DateUtils.now() + " 收到服务端消息：" + msgResponsePacket.getMsg());
+//        }
+//    }
 }

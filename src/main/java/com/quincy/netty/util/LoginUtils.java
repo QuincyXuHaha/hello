@@ -1,5 +1,6 @@
-package com.quincy.netty;
+package com.quincy.netty.util;
 
+import com.quincy.netty.Attributes;
 import io.netty.channel.Channel;
 
 /**

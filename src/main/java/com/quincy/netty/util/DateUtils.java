@@ -1,4 +1,4 @@
-package com.quincy.netty;
+package com.quincy.netty.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
