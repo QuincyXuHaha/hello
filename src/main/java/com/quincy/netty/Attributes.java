@@ -13,6 +13,7 @@ public interface Attributes {
      * 登录属性
      */
     AttributeKey<Boolean> LOGIN = AttributeKey.newInstance("login");
+    AttributeKey<Session> SESSION = AttributeKey.newInstance("session");
 
 
 }

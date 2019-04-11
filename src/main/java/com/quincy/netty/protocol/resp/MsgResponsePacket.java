@@ -13,6 +13,8 @@ import lombok.Data;
 @Data
 public class MsgResponsePacket extends AbstractPacket {
 
+    private Long fromUserId;
+    private String fromName;
     private String msg;
 
     @Override

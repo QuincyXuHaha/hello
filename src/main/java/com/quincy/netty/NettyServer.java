@@ -38,11 +38,7 @@ public class NettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-//                        ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
-//                        ch.pipeline().addLast(new Spliter());
-//                        ch.pipeline().addLast(FIRST);
-//                        ch.pipeline().addLast(new InboundHandlerA(), new InboundHandlerB(), new InboundHandlerC());
-//                        ch.pipeline().addLast(new OutboundHandlerA(), new OutboundHandlerB(), new OutboundHandlerC());
+                        ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginRequestHandler());
                         ch.pipeline().addLast(new AuthHandler());

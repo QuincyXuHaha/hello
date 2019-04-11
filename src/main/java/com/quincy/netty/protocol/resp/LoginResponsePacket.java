@@ -12,7 +12,8 @@ import lombok.Data;
  */
 @Data
 public class LoginResponsePacket extends AbstractPacket {
-
+    private Long userId;
+    private String name;
     private boolean success;
     private String reason;
 

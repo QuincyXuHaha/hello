@@ -1,6 +1,7 @@
 package com.quincy.netty.server;
 
 import com.quincy.netty.util.LoginUtils;
+import com.quincy.netty.util.SessionUtils;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -15,7 +16,7 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (!LoginUtils.hasLogin(ctx.channel())) {
+        if (!SessionUtils.hasLogin(ctx.channel())) {
             System.out.println("用户未登录");
             ctx.channel().close();
         } else {

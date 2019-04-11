@@ -18,7 +18,6 @@ public class Spliter extends LengthFieldBasedFrameDecoder {
     @Override
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
         int magic = in.getInt(in.readerIndex());
-        System.out.println("魔法数为：" + magic);
         if (magic != PacketCodeC.MAGIC_NUMBER) {
             System.out.println("魔法数不正确：" + magic);
             ctx.channel().close();
