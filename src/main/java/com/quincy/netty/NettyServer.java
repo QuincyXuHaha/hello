@@ -3,6 +3,7 @@ package com.quincy.netty;
 
 import com.quincy.netty.protocol.PacketDecoder;
 import com.quincy.netty.protocol.PacketEncoder;
+import com.quincy.netty.server.AuthHandler;
 import com.quincy.netty.server.FirstServerHandler;
 import com.quincy.netty.server.LoginRequestHandler;
 import com.quincy.netty.server.MsgRequestHandler;
@@ -38,12 +39,13 @@ public class NettyServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
 //                        ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
-                        ch.pipeline().addLast(new Spliter());
+//                        ch.pipeline().addLast(new Spliter());
 //                        ch.pipeline().addLast(FIRST);
 //                        ch.pipeline().addLast(new InboundHandlerA(), new InboundHandlerB(), new InboundHandlerC());
 //                        ch.pipeline().addLast(new OutboundHandlerA(), new OutboundHandlerB(), new OutboundHandlerC());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginRequestHandler());
+                        ch.pipeline().addLast(new AuthHandler());
                         ch.pipeline().addLast(new MsgRequestHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     }
