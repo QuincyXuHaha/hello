@@ -1,4 +1,4 @@
-package com.quincy.netty.protocol;
+package com.quincy.netty.command;
 
 /**
  * 指令
@@ -20,6 +20,12 @@ public interface Command {
      * 发消息指令
      */
     Byte MESSAGE_REQUEST = 3;
+
     Byte MESSAGE_RESPONSE = 4;
+    /**
+     * 创建群聊
+     */
+    Byte CREATE_GROUP_REQUEST = 5;
+    Byte CREATE_GROUP_RESPONSE = 6;
 
 }

@@ -3,10 +3,7 @@ package com.quincy.netty;
 
 import com.quincy.netty.protocol.PacketDecoder;
 import com.quincy.netty.protocol.PacketEncoder;
-import com.quincy.netty.server.AuthHandler;
-import com.quincy.netty.server.FirstServerHandler;
-import com.quincy.netty.server.LoginRequestHandler;
-import com.quincy.netty.server.MsgRequestHandler;
+import com.quincy.netty.server.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
@@ -42,6 +39,7 @@ public class NettyServer {
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginRequestHandler());
                         ch.pipeline().addLast(new AuthHandler());
+                        ch.pipeline().addLast(new CreateGroupRequestHandler());
                         ch.pipeline().addLast(new MsgRequestHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     }

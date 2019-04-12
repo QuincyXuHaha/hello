@@ -1,12 +1,13 @@
 package com.quincy.netty;
 
+import com.quincy.netty.client.CreateGroupResponseHandler;
 import com.quincy.netty.client.FirstClientHandler;
 import com.quincy.netty.client.LoginResponseHandler;
 import com.quincy.netty.client.MsgResponseHandler;
+import com.quincy.netty.command.ConsoleCommandManager;
+import com.quincy.netty.command.LoginConsoleCommand;
 import com.quincy.netty.protocol.PacketDecoder;
 import com.quincy.netty.protocol.PacketEncoder;
-import com.quincy.netty.protocol.req.LoginRequestPacket;
-import com.quincy.netty.protocol.req.MsgRequestPacket;
 import com.quincy.netty.util.SessionUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -46,6 +47,7 @@ public class NettyClient {
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginResponseHandler());
                         ch.pipeline().addLast(new MsgResponseHandler());
+                        ch.pipeline().addLast(new CreateGroupResponseHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
@@ -58,35 +60,21 @@ public class NettyClient {
     }
 
     private static void startConsoleThread(Channel channel) {
+        ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
+        LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();
+        Scanner scanner = new Scanner(System.in);
+
         new Thread(() -> {
-            Scanner sc = new Scanner(System.in);
-            LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
             while (!Thread.interrupted()) {
                 if (!SessionUtils.hasLogin(channel)) {
-                    System.out.print("输入用户名登录: ");
-                    String username = sc.nextLine();
-                    loginRequestPacket.setName(username);
-                    // 密码使用默认的
-                    loginRequestPacket.setPwd("pwd");
-                    // 发送登录数据包
-                    channel.writeAndFlush(loginRequestPacket);
-                    waitForLoginResponse();
+                    loginConsoleCommand.exec(scanner, channel);
                 } else {
-                    Long toUserId = Long.valueOf(sc.next());
-                    String message = sc.next();
-                    channel.writeAndFlush(new MsgRequestPacket(toUserId, message));
+                    consoleCommandManager.exec(scanner, channel);
                 }
             }
         }).start();
-
     }
 
-    private static void waitForLoginResponse() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ignored) {
-        }
-    }
 
 //    private static void connect(Bootstrap bootstrap, String host, int port, int retry) {
 //        bootstrap.connect(host, port).addListener(future -> {

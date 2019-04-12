@@ -1,7 +1,10 @@
 package com.quincy.netty.protocol;
 
+import com.quincy.netty.command.Command;
+import com.quincy.netty.protocol.req.CreateGroupRequestPacket;
 import com.quincy.netty.protocol.req.LoginRequestPacket;
 import com.quincy.netty.protocol.req.MsgRequestPacket;
+import com.quincy.netty.protocol.resp.CreateGroupResponsePacket;
 import com.quincy.netty.protocol.resp.LoginResponsePacket;
 import com.quincy.netty.protocol.resp.MsgResponsePacket;
 import io.netty.buffer.ByteBuf;
@@ -36,6 +39,8 @@ public class PacketCodeC {
         requestTypeMap.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
         requestTypeMap.put(Command.MESSAGE_REQUEST, MsgRequestPacket.class);
         requestTypeMap.put(Command.MESSAGE_RESPONSE, MsgResponsePacket.class);
+        requestTypeMap.put(Command.CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
+        requestTypeMap.put(Command.CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
 
         serializerMap.put(SerializeAlgorithm.JSON, Serializer.DEFAULT);
     }

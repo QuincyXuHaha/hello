@@ -18,6 +18,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket msg) throws Exception {
         LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
         long userId = System.currentTimeMillis();
+        System.out.println(String.format(" 用户%s登录成功", msg.getName()));
         loginResponsePacket.setSuccess(true);
         loginResponsePacket.setUserId(userId);
         loginResponsePacket.setName(msg.getName());

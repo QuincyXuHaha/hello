@@ -1,7 +1,7 @@
 package com.quincy.netty.protocol.resp;
 
 import com.quincy.netty.protocol.AbstractPacket;
-import com.quincy.netty.protocol.Command;
+import com.quincy.netty.command.Command;
 import lombok.Data;
 
 /**
@@ -19,6 +19,6 @@ public class MsgResponsePacket extends AbstractPacket {
 
     @Override
     public Byte getCommand() {
-        return Command.MESSAGE_RESPONSE;
+        return Command.CREATE_GROUP_RESPONSE;
     }
 }
