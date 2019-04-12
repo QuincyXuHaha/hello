@@ -27,5 +27,20 @@ public interface Command {
      */
     Byte CREATE_GROUP_REQUEST = 5;
     Byte CREATE_GROUP_RESPONSE = 6;
+    /**
+     * 加入群聊
+     */
+    Byte JOIN_GROUP_REQUEST = 7;
+    Byte JOIN_GROUP_RESPONSE = 8;
 
+    /**
+     * 退出群聊
+     */
+    Byte QUIT_GROUP_REQUEST = 9;
+    Byte QUIT_GROUP_RESPONSE = 10;
+    /**
+     * 查询群成员
+     */
+    Byte QUERY_GROUP_MEMBER_REQUEST = 11;
+    Byte QUERY_GROUP_MEMBER_RESPONSE = 12;
 }

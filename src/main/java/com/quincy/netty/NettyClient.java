@@ -1,9 +1,6 @@
 package com.quincy.netty;
 
-import com.quincy.netty.client.CreateGroupResponseHandler;
-import com.quincy.netty.client.FirstClientHandler;
-import com.quincy.netty.client.LoginResponseHandler;
-import com.quincy.netty.client.MsgResponseHandler;
+import com.quincy.netty.client.*;
 import com.quincy.netty.command.ConsoleCommandManager;
 import com.quincy.netty.command.LoginConsoleCommand;
 import com.quincy.netty.protocol.PacketDecoder;
@@ -48,6 +45,9 @@ public class NettyClient {
                         ch.pipeline().addLast(new LoginResponseHandler());
                         ch.pipeline().addLast(new MsgResponseHandler());
                         ch.pipeline().addLast(new CreateGroupResponseHandler());
+                        ch.pipeline().addLast(new JoinGroupResponseHandler());
+                        ch.pipeline().addLast(new QuitGroupResponseHandler());
+                        ch.pipeline().addLast(new QueryGroupMemberResponseHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     }
                 });

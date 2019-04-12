@@ -1,12 +1,8 @@
 package com.quincy.netty.protocol;
 
 import com.quincy.netty.command.Command;
-import com.quincy.netty.protocol.req.CreateGroupRequestPacket;
-import com.quincy.netty.protocol.req.LoginRequestPacket;
-import com.quincy.netty.protocol.req.MsgRequestPacket;
-import com.quincy.netty.protocol.resp.CreateGroupResponsePacket;
-import com.quincy.netty.protocol.resp.LoginResponsePacket;
-import com.quincy.netty.protocol.resp.MsgResponsePacket;
+import com.quincy.netty.protocol.req.*;
+import com.quincy.netty.protocol.resp.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
@@ -41,6 +37,12 @@ public class PacketCodeC {
         requestTypeMap.put(Command.MESSAGE_RESPONSE, MsgResponsePacket.class);
         requestTypeMap.put(Command.CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
         requestTypeMap.put(Command.CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
+        requestTypeMap.put(Command.JOIN_GROUP_REQUEST, JoinGroupRequestPacket.class);
+        requestTypeMap.put(Command.JOIN_GROUP_RESPONSE, JoinGroupResponsePacket.class);
+        requestTypeMap.put(Command.QUIT_GROUP_REQUEST, QuitGroupRequestPacket.class);
+        requestTypeMap.put(Command.QUIT_GROUP_RESPONSE, QuitGroupResponsePacket.class);
+        requestTypeMap.put(Command.QUERY_GROUP_MEMBER_REQUEST, QueryGroupMemberRequestPacket.class);
+        requestTypeMap.put(Command.QUERY_GROUP_MEMBER_RESPONSE, QueryGroupMemberResponsePacket.class);
 
         serializerMap.put(SerializeAlgorithm.JSON, Serializer.DEFAULT);
     }

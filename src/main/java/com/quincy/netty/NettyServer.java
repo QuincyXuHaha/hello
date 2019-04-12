@@ -40,6 +40,9 @@ public class NettyServer {
                         ch.pipeline().addLast(new LoginRequestHandler());
                         ch.pipeline().addLast(new AuthHandler());
                         ch.pipeline().addLast(new CreateGroupRequestHandler());
+                        ch.pipeline().addLast(new JoinGroupRequestHandler());
+                        ch.pipeline().addLast(new QuitGroupRequestHandler());
+                        ch.pipeline().addLast(new QueryGroupMemberRequestHandler());
                         ch.pipeline().addLast(new MsgRequestHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     }

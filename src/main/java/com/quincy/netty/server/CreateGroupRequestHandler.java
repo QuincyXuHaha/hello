@@ -8,7 +8,6 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
-import io.netty.channel.group.DefaultChannelGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +25,9 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket msg) throws Exception {
         List<String> userIdList = msg.getUserIdList();
         List<String> nameList = new ArrayList<>();
+        String groupId = UUID.randomUUID().toString().substring(5, 10);
         // 1、创建一个通道组
-        ChannelGroup channelGroup = new DefaultChannelGroup(ctx.executor());
+        ChannelGroup channelGroup = SessionUtils.createGroup(groupId, ctx.executor());
         for (String userId : userIdList) {
             Channel channel = SessionUtils.getChannel(Long.valueOf(userId));
             if (channel != null) {
@@ -38,7 +38,7 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
         }
         // 2、封装返回消息
         CreateGroupResponsePacket packet = new CreateGroupResponsePacket();
-        packet.setGroupId(UUID.randomUUID().toString().substring(5, 10));
+        packet.setGroupId(groupId);
         packet.setSuccess(true);
         packet.setUserNameList(nameList);
 
