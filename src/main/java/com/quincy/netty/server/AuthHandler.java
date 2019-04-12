@@ -2,6 +2,7 @@ package com.quincy.netty.server;
 
 import com.quincy.netty.util.LoginUtils;
 import com.quincy.netty.util.SessionUtils;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -11,8 +12,12 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @author quincy
  * @date 2019/4/11 星期四
  */
+@ChannelHandler.Sharable
 public class AuthHandler extends ChannelInboundHandlerAdapter {
 
+    public static final AuthHandler INSTANCE = new AuthHandler();
+
+    protected AuthHandler(){}
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

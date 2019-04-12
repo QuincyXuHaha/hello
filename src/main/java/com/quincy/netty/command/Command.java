@@ -43,4 +43,10 @@ public interface Command {
      */
     Byte QUERY_GROUP_MEMBER_REQUEST = 11;
     Byte QUERY_GROUP_MEMBER_RESPONSE = 12;
+
+    /**
+     * 群发消息
+     */
+    Byte GROUP_MSG_REQUEST = 13;
+    Byte GROUP_MSG_RESPONSE = 14;
 }

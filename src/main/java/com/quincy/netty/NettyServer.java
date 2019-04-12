@@ -5,7 +5,6 @@ import com.quincy.netty.protocol.PacketDecoder;
 import com.quincy.netty.protocol.PacketEncoder;
 import com.quincy.netty.server.*;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -19,8 +18,6 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  * @date 2019/4/4 星期四
  */
 public class NettyServer {
-
-    private static final ChannelHandler FIRST = new FirstServerHandler();
 
     public static void main(String[] args) {
         // 监听端口，accept新连接的线程组
@@ -37,13 +34,13 @@ public class NettyServer {
                     protected void initChannel(NioSocketChannel ch) throws Exception {
                         ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
-                        ch.pipeline().addLast(new LoginRequestHandler());
-                        ch.pipeline().addLast(new AuthHandler());
-                        ch.pipeline().addLast(new CreateGroupRequestHandler());
-                        ch.pipeline().addLast(new JoinGroupRequestHandler());
-                        ch.pipeline().addLast(new QuitGroupRequestHandler());
-                        ch.pipeline().addLast(new QueryGroupMemberRequestHandler());
-                        ch.pipeline().addLast(new MsgRequestHandler());
+                        ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(AuthHandler.INSTANCE);
+                        ch.pipeline().addLast(CreateGroupRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(JoinGroupRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(QuitGroupRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(QueryGroupMemberRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(MsgRequestHandler.INSTANCE);
                         ch.pipeline().addLast(new PacketEncoder());
                     }
                 });//定义处理连接的业务逻辑;

@@ -2,6 +2,7 @@ package com.quincy.netty.server;
 
 import com.quincy.netty.util.DateUtils;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -13,7 +14,11 @@ import java.nio.charset.Charset;
  * @author quincy
  * @date 2019/4/8 星期一
  */
+@ChannelHandler.Sharable
 public class FirstServerHandler extends ChannelInboundHandlerAdapter {
+
+    public static final FirstServerHandler INSTANCE = new FirstServerHandler();
+    protected FirstServerHandler(){}
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

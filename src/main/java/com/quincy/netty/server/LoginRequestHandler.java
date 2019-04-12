@@ -4,6 +4,7 @@ import com.quincy.netty.Session;
 import com.quincy.netty.protocol.req.LoginRequestPacket;
 import com.quincy.netty.protocol.resp.LoginResponsePacket;
 import com.quincy.netty.util.SessionUtils;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -13,7 +14,13 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * @author quincy
  * @date 2019/4/10 星期三
  */
+@ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+
+
+    public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();
+    protected LoginRequestHandler(){}
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket msg) throws Exception {
         LoginResponsePacket loginResponsePacket = new LoginResponsePacket();

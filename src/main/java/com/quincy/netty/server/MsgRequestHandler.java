@@ -5,6 +5,7 @@ import com.quincy.netty.protocol.req.MsgRequestPacket;
 import com.quincy.netty.protocol.resp.MsgResponsePacket;
 import com.quincy.netty.util.SessionUtils;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -14,7 +15,14 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * @author quincy
  * @date 2019/4/10 星期三
  */
+@ChannelHandler.Sharable
 public class MsgRequestHandler extends SimpleChannelInboundHandler<MsgRequestPacket> {
+
+
+    public static final MsgRequestHandler INSTANCE = new MsgRequestHandler();
+    protected MsgRequestHandler(){}
+
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MsgRequestPacket msg) {
 //        System.out.println(DateUtils.now() + " 收到客户端消息：【" + msg.getMsg() + "】");

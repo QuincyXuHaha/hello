@@ -4,6 +4,7 @@ import com.quincy.netty.Session;
 import com.quincy.netty.protocol.req.QuitGroupRequestPacket;
 import com.quincy.netty.protocol.resp.QuitGroupResponsePacket;
 import com.quincy.netty.util.SessionUtils;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -12,7 +13,12 @@ import io.netty.channel.group.ChannelGroup;
  * @author quincy
  * @date 2019/4/12 星期五
  */
+@ChannelHandler.Sharable
 public class QuitGroupRequestHandler extends SimpleChannelInboundHandler<QuitGroupRequestPacket> {
+
+    public static final QuitGroupRequestHandler INSTANCE = new QuitGroupRequestHandler();
+    protected QuitGroupRequestHandler(){}
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, QuitGroupRequestPacket msg) throws Exception {
         // 移除群组
