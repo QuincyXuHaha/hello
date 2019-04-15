@@ -3,8 +3,7 @@ package com.quincy.netty;
 import com.quincy.netty.client.*;
 import com.quincy.netty.command.ConsoleCommandManager;
 import com.quincy.netty.command.LoginConsoleCommand;
-import com.quincy.netty.protocol.PacketDecoder;
-import com.quincy.netty.protocol.PacketEncoder;
+import com.quincy.netty.protocol.PacketCodecHandler;
 import com.quincy.netty.util.SessionUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -41,14 +40,13 @@ public class NettyClient {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline().addLast(new Spliter());
-                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
                         ch.pipeline().addLast(new LoginResponseHandler());
                         ch.pipeline().addLast(new MsgResponseHandler());
                         ch.pipeline().addLast(new CreateGroupResponseHandler());
                         ch.pipeline().addLast(new JoinGroupResponseHandler());
                         ch.pipeline().addLast(new QuitGroupResponseHandler());
                         ch.pipeline().addLast(new QueryGroupMemberResponseHandler());
-                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
         bootstrap.connect("127.0.0.1", 8000).addListener(future -> {
