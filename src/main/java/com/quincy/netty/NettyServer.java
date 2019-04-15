@@ -1,8 +1,12 @@
 package com.quincy.netty;
 
 
+import com.quincy.netty.client.HeartBeatTimerHandler;
+import com.quincy.netty.protocol.IMIdelStateHandler;
 import com.quincy.netty.protocol.PacketCodecHandler;
-import com.quincy.netty.server.*;
+import com.quincy.netty.server.AuthHandler;
+import com.quincy.netty.server.IMHandler;
+import com.quincy.netty.server.LoginRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -31,8 +35,10 @@ public class NettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
+                        ch.pipeline().addLast(new IMIdelStateHandler());
                         ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
+                        ch.pipeline().addLast(HeartBeatTimerHandler.INSTANCE);
                         ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
                         ch.pipeline().addLast(AuthHandler.INSTANCE);
                         ch.pipeline().addLast(IMHandler.INSTANCE);
