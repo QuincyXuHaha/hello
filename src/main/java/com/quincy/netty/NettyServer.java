@@ -1,10 +1,10 @@
 package com.quincy.netty;
 
 
-import com.quincy.netty.client.HeartBeatTimerHandler;
 import com.quincy.netty.protocol.IMIdelStateHandler;
 import com.quincy.netty.protocol.PacketCodecHandler;
 import com.quincy.netty.server.AuthHandler;
+import com.quincy.netty.server.HeartBeatRequestHandler;
 import com.quincy.netty.server.IMHandler;
 import com.quincy.netty.server.LoginRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -38,7 +38,8 @@ public class NettyServer {
                         ch.pipeline().addLast(new IMIdelStateHandler());
                         ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
-                        ch.pipeline().addLast(HeartBeatTimerHandler.INSTANCE);
+                        // 心跳检测，无需鉴权
+                        ch.pipeline().addLast(HeartBeatRequestHandler.INSTANCE);
                         ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
                         ch.pipeline().addLast(AuthHandler.INSTANCE);
                         ch.pipeline().addLast(IMHandler.INSTANCE);
