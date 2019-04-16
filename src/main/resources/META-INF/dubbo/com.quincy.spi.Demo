@@ -1,0 +1,2 @@
+quincy = com.quincy.spi.QuincyDemoImpl
+tina = com.quincy.spi.TinaDemoImpl
