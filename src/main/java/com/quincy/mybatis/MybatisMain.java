@@ -1,10 +1,5 @@
 package com.quincy.mybatis;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import java.io.IOException;
 
 /**
@@ -14,18 +9,18 @@ import java.io.IOException;
 public class MybatisMain {
 
     public static void main(String[] args) throws IOException {
-        SqlSessionFactory ssf =
-                new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config.xml"));
-        SqlSession sqlSession = ssf.openSession();
+//        SqlSessionFactory ssf =
+//                new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config.xml"));
+//        SqlSession sqlSession = ssf.openSession();
 //        User user = new User();
 //        user.setAge(22);
 //        user.setName("quincy");
-        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+//        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 //        int result = mapper.insert(user);
-        User user = mapper.get("quincy");
-        sqlSession.commit();
-        sqlSession.close();
-        System.out.println(user);
+//        User user = mapper.get("quincy");
+//        sqlSession.commit();
+//        sqlSession.close();
+//        System.out.println(user);
     }
 
 }

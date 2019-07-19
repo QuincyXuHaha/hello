@@ -1,11 +1,13 @@
 package com.quincy.controller;
 
+import com.quincy.MyException;
 import com.quincy.annotation.CustomizableAnnotation;
+import com.quincy.demo.Good;
 import com.quincy.main.MyTest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @author quincy
@@ -30,5 +32,30 @@ public class HelloController {
     @GetMapping("/test2")
     @CustomizableAnnotation
     public void test2() {
+    }
+
+    @GetMapping("/test3")
+    public Object test3() {
+        throw new MyException();
+    }
+
+    @GetMapping("/test4")
+    public Object test4() {
+        throw new NullPointerException();
+    }
+
+    @PostMapping("/test5")
+    public Object test5(@Valid @RequestBody Good good) {
+        return good;
+    }
+
+    @PostMapping("/test6")
+    public Object test6(@Valid @ModelAttribute Good good) {
+        return good;
+    }
+
+    @PostMapping("/test7")
+    public Object test7( @RequestParam String name) {
+        return name;
     }
 }
